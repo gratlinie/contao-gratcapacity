@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Gratlinie\GratCapacityBundle\:
+        resource: ../src/
+        exclude:
+            - ../src/ContaoManager/
+            - ../src/GratlinieGratCapacityBundle.php

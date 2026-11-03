@@ -1,0 +1,30 @@
+{
+    "name": "gratlinie/contao-gratcapacity",
+    "description": "GratCapacity – Auslastungsanzeige (Balken oder Batterie) als Frontend-Modul für Contao",
+    "type": "contao-bundle",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Gratlinie",
+            "email": "mail@gratlinie.de"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "contao/core-bundle": "^5.7"
+    },
+    "require-dev": {
+        "contao/manager-plugin": "^2.0"
+    },
+    "conflict": {
+        "contao/manager-plugin": "<2.0 || >=3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gratlinie\\GratCapacityBundle\\": "src/"
+        }
+    },
+    "extra": {
+        "contao-manager-plugin": "Gratlinie\\GratCapacityBundle\\ContaoManager\\Plugin"
+    }
+}
