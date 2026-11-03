@@ -28,3 +28,7 @@ Variablen: `--gc-color-free`, `--gc-color-few`, `--gc-color-none`, `--gc-bg`, `-
 `--gc-radius`, `--gc-segment-width`, `--gc-segment-height`, `--gc-glow`, `--gc-glow-strong`. Durch die gefüllten Segmente
 läuft in Schleife eine Lichtwelle (bei der Batterie ein Lichtstreifen), Tempo über `--gc-wave-duration` und
 `--gc-wave-step`; bei reduzierter Bewegung steht sie still. Der Balken ist ein `role="meter"` mit `aria-valuenow`.
+
+## Lizenz
+
+MIT, siehe [LICENSE](LICENSE).

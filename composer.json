@@ -2,7 +2,7 @@
     "name": "gratlinie/contao-gratcapacity",
     "description": "GratCapacity – Auslastungsanzeige (Balken oder Batterie) als Frontend-Modul für Contao",
     "type": "contao-bundle",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Gratlinie",
