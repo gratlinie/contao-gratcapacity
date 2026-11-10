@@ -20,7 +20,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields'] += [
     ],
     'gcSize' => [
         'inputType' => 'radio',
-        'options' => ['compact', 'card'],
+        'options' => ['compact', 'card', 'dot'],
         'reference' => &$GLOBALS['TL_LANG']['tl_module']['gc_ref']['size'],
         'eval' => ['tl_class' => 'w50'],
         'sql' => ['type' => 'string', 'length' => 8, 'default' => 'compact'],

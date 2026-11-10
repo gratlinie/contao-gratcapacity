@@ -40,7 +40,7 @@ class CapacityController extends AbstractFrontendModuleController
         $template->set('gc_label', $model->gcLabel ?: $trans('label'));
         $template->set('gc_text', $texts[$status] ?: $trans($status));
         $template->set('gc_style', 'battery' === $model->gcStyle ? 'battery' : 'bar');
-        $template->set('gc_size', 'card' === $model->gcSize ? 'card' : 'compact');
+        $template->set('gc_size', \in_array($model->gcSize, ['card', 'dot'], true) ? $model->gcSize : 'compact');
         $template->set('gc_animation', (bool) $model->gcAnimation);
         $template->set('gc_speed', \in_array($model->gcSpeed, ['slow', 'fast'], true) ? $model->gcSpeed : 'normal');
         $template->set('gc_css_version', substr(md5((string) filemtime(\dirname(__DIR__, 3).'/public/css/capacity.css')), 0, 8));

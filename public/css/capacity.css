@@ -17,6 +17,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.75em;
+  margin-inline-start: var(--gc-offset-inline, 0px);
   padding: 0.5em 1em;
   border: var(--gc-border);
   border-radius: var(--gc-radius);
@@ -143,6 +144,65 @@
   inset-block: 0.5rem;
 }
 
+.gc-capacity--dot {
+  gap: 0.5em;
+  padding: 0.375em 0.875em 0.375em 0.75em;
+  border-color: color-mix(in srgb, var(--gc-color) 35%, transparent);
+  background: color-mix(in srgb, var(--gc-color) 10%, transparent);
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  font-size: var(--gf-fs-xs, 0.8125rem);
+  white-space: nowrap;
+}
+
+.gc-capacity--dot .gc-capacity__label {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.gc-capacity--dot .gc-capacity__status {
+  font-weight: 600;
+}
+
+.gc-capacity__dot {
+  position: relative;
+  flex: none;
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: 50%;
+  background: var(--gc-color);
+  box-shadow: var(--gc-glow);
+}
+
+.gc-capacity__dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--gc-color);
+  animation: gc-pulse var(--gc-wave-duration) ease-out infinite;
+}
+
+@media (width < 36rem) {
+  .gc-capacity--dot {
+    padding: 0.625em;
+  }
+
+  .gc-capacity--dot .gc-capacity__text {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
 .gc-capacity__fill::after {
   content: "";
   position: absolute;
@@ -156,6 +216,7 @@
 .gc-capacity--fast { --gc-wave-duration: 1.6s; --gc-wave-step: 0.08s; }
 
 .gc-capacity--static .gc-capacity__meter i.is-on,
+.gc-capacity--static .gc-capacity__dot::after,
 .gc-capacity--static .gc-capacity__fill::after {
   animation: none;
 }
@@ -166,12 +227,18 @@
   40% { opacity: var(--gc-opacity); scale: 1; }
 }
 
+@keyframes gc-pulse {
+  0% { opacity: 0.7; scale: 1; }
+  70%, 100% { opacity: 0; scale: 2.8; }
+}
+
 @keyframes gc-sweep {
   60%, 100% { translate: 100% 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .gc-capacity__meter i.is-on,
+  .gc-capacity__dot::after,
   .gc-capacity__fill::after {
     animation: none;
   }

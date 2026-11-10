@@ -5,11 +5,15 @@
 {% endadd %}
 
 {% block content %}
-    <div class="gc-capacity gc-capacity--{{ gc_size }} gc-capacity--{{ gc_style }} gc-capacity--{{ gc_status }} {{ gc_animation ? 'gc-capacity--' ~ gc_speed : 'gc-capacity--static' }}" style="--gc-level: {{ gc_level }}">
+    <div class="gc-capacity gc-capacity--{{ gc_size }} gc-capacity--{{ gc_style }} gc-capacity--{{ gc_status }} {{ gc_animation ? 'gc-capacity--' ~ gc_speed : 'gc-capacity--static' }}" style="--gc-level: {{ gc_level }}"{% if 'dot' == gc_size %} title="{{ gc_label }}: {{ gc_level * 10 }} %"{% endif %}>
+        {% if 'dot' == gc_size %}
+            <span class="gc-capacity__dot" role="meter" aria-valuemin="0" aria-valuemax="10" aria-valuenow="{{ gc_level }}" aria-label="{{ 'MSC.gc_meter'|trans([gc_label, gc_level], 'contao_default') }}"></span>
+        {% endif %}
         <span class="gc-capacity__text">
             <span class="gc-capacity__label">{{ gc_label }}:</span>
             <strong class="gc-capacity__status">{{ gc_text }}</strong>
         </span>
+        {% if 'dot' != gc_size %}
         <span class="gc-capacity__meter" role="meter" aria-valuemin="0" aria-valuemax="10" aria-valuenow="{{ gc_level }}" aria-label="{{ 'MSC.gc_meter'|trans([gc_label, gc_level], 'contao_default') }}">
             {% if 'battery' == gc_style %}
                 <span class="gc-capacity__battery"><span class="gc-capacity__fill"></span></span>
@@ -17,6 +21,7 @@
                 {% for i in 1..10 %}<i{% if i <= gc_level %} class="is-on"{% endif %} style="--gc-i: {{ i }}"></i>{% endfor %}
             {% endif %}
         </span>
+        {% endif %}
         {% if 'card' == gc_size %}
             <span class="gc-capacity__value" aria-hidden="true">{{ gc_level * 10 }} %</span>
         {% endif %}
