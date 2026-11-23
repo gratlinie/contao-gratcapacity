@@ -15,6 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Auslastung auf einer Skala von 1 bis 10 als Balken oder Batterie. Der Status
  * ergibt sich aus der Stufe: 1–4 freie Slots, 5–8 wenige Slots, 9–10 keine freien Slots.
+ * Optional gilt ab einem Datum eine geplante Stufe.
  */
 #[AsFrontendModule('gc_capacity', category: 'miscellaneous')]
 class CapacityController extends AbstractFrontendModuleController
@@ -25,7 +26,20 @@ class CapacityController extends AbstractFrontendModuleController
 
     protected function getResponse(FragmentTemplate $template, ModuleModel $model, Request $request): Response
     {
-        $level = max(1, min(10, (int) $model->gcLevel ?: 5));
+        $level = (int) $model->gcLevel;
+        $scheduleStart = '' !== (string) $model->gcScheduleStart ? (int) $model->gcScheduleStart : null;
+        $scheduleLevel = (int) $model->gcScheduleLevel;
+        $scheduleTtl = null;
+
+        if (null !== $scheduleStart && $scheduleLevel > 0) {
+            if (time() >= $scheduleStart) {
+                $level = $scheduleLevel;
+            } else {
+                $scheduleTtl = $scheduleStart - time();
+            }
+        }
+
+        $level = max(1, min(10, $level ?: 5));
         $status = match (true) {
             $level <= 4 => 'free',
             $level <= 8 => 'few',
@@ -45,6 +59,13 @@ class CapacityController extends AbstractFrontendModuleController
         $template->set('gc_speed', \in_array($model->gcSpeed, ['slow', 'fast'], true) ? $model->gcSpeed : 'normal');
         $template->set('gc_css_version', substr(md5((string) filemtime(\dirname(__DIR__, 3).'/public/css/capacity.css')), 0, 8));
 
-        return $template->getResponse();
+        $response = $template->getResponse();
+
+        // Seiten-Cache höchstens bis zum Umschalten gelten lassen (wie Start/Stopp bei Inhaltselementen)
+        if (null !== $scheduleTtl) {
+            $response->setSharedMaxAge($scheduleTtl);
+        }
+
+        return $response;
     }
 }

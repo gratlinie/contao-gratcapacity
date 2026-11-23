@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['gc_capacity'] = '{title_legend},name,headline,type;{gc_capacity_legend},gcLevel,gcStyle,gcSize,gcAnimation,gcSpeed;{gc_text_legend},gcLabel,gcTextFree,gcTextFew,gcTextNone;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},cssID';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['gc_capacity'] = '{title_legend},name,headline,type;{gc_capacity_legend},gcLevel,gcStyle,gcSize,gcAnimation,gcSpeed;{gc_schedule_legend},gcScheduleStart,gcScheduleLevel;{gc_text_legend},gcLabel,gcTextFree,gcTextFew,gcTextNone;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},cssID';
 
 $GLOBALS['TL_DCA']['tl_module']['fields'] += [
     'gcLevel' => [
@@ -10,6 +10,17 @@ $GLOBALS['TL_DCA']['tl_module']['fields'] += [
         'options' => range(1, 10),
         'eval' => ['tl_class' => 'w50'],
         'sql' => ['type' => 'smallint', 'unsigned' => true, 'default' => 5],
+    ],
+    'gcScheduleStart' => [
+        'inputType' => 'text',
+        'eval' => ['rgxp' => 'date', 'datepicker' => true, 'tl_class' => 'w50 wizard'],
+        'sql' => ['type' => 'string', 'length' => 10, 'default' => ''],
+    ],
+    'gcScheduleLevel' => [
+        'inputType' => 'select',
+        'options' => range(1, 10),
+        'eval' => ['includeBlankOption' => true, 'tl_class' => 'w50'],
+        'sql' => ['type' => 'smallint', 'unsigned' => true, 'default' => 0],
     ],
     'gcStyle' => [
         'inputType' => 'radio',

@@ -16,6 +16,7 @@ Inhaltselement „Modul“.
 | Feld | Wirkung |
 |---|---|
 | Auslastung | 1–10; 1–4 „Freie Slots verfügbar“ (grün), 5–8 „Wenige Slots verfügbar“ (gelb), 9–10 „Keine freien Slots verfügbar“ (rot) |
+| Geplante Änderung | Ab Datum (0 Uhr) gilt die zweite Stufe statt der ersten; leer = keine Änderung. Ausgewertet beim Seitenaufruf, der Seiten-Cache läuft spätestens zum Umschalten ab |
 | Anzeige | Balken oder Batterie |
 | Größe | Kompakt (einzeilige Plakette) oder Karte (mit Prozentwert) |
 | Animation, Tempo | Lichtwelle an/aus (Standard: an), langsam / normal / schnell |
